@@ -47,7 +47,7 @@ export function ModalProducts({ products }: { products: [] }) {
                     {
                         products &&
                         products.map((product: { product_id: number; quantity: number; product: { name: string; }; }, index: number) => (
-                            <div key={product.product_id} className='flex items-center justify-between mt-1'>
+                            <div key={product.product_id} className='flex items-center justify-between mt-1 gap-3'>
                                 <p>{index + 1}- {product.product.name}</p>
                                 <p>{product.quantity}</p>
                             </div>
