@@ -21,8 +21,6 @@ export const useGetProducts = () => {
       try {
         const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}api/product/get_products/${page}`);
 
-        console.log(response.data.products);
-
         setProducts(response.data.products || []);
         setTotalPages(response.data.totalPages || 1); // Establecer totalPages según el backend
         setCurrentPage(response.data.currentPage || 1); // Establecer currentPage según el backend

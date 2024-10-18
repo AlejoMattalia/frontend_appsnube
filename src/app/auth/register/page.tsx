@@ -79,7 +79,7 @@ export default function Page() {
                 }
 
                 dispatch(setUser(res.data.user));
-                router.push('/');
+                window.location.href = '/';
             } catch (err) {
                 console.log(err);
                 if (err && typeof err === 'object' && 'response' in err && err.response && typeof err.response === 'object' && 'data' in err.response && err.response.data && typeof err.response.data === 'object' && 'message' in err.response.data) {

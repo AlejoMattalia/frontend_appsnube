@@ -75,7 +75,7 @@ export default function Page() {
 
 
                 dispatch(setUser(res.data.user));
-                router.push('/');
+                window.location.href = '/';
             }
             catch (err) {
                 console.log(err)
