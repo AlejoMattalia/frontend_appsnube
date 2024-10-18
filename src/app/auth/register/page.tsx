@@ -79,6 +79,7 @@ export default function Page() {
                 }
 
                 dispatch(setUser(res.data.user));
+                Cookies.set('user_id', res.data.user.id);
                 window.location.href = '/';
             } catch (err) {
                 console.log(err);

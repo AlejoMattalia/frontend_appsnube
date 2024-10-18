@@ -7,6 +7,8 @@ import { useAppSelector } from '../redux/hook';
 import axios from 'axios';
 import Toastify from "toastify-js";
 import { ModalOrder } from './ModalOrder';
+import Cookies from "js-cookie";
+
 
 const style = {
     position: 'absolute',
@@ -29,7 +31,6 @@ export function ModalConfirmBuy() {
     const handleClose = () => setOpen(false);
 
 
-    const user = useAppSelector((state) => state.user);
     const cart = useAppSelector((state) => state.cart.value)
 
     const [openModalOrder, setOpenModalOrder] = React.useState(false);
@@ -37,8 +38,25 @@ export function ModalConfirmBuy() {
 
     const buyProduct = async () => {
         try {
+
+            const user_id = Cookies.get('user_id');
+
+            if (!user_id) {
+                return Toastify({
+                    text: "Debes iniciar sesión para realizar la compra de compra",
+                    duration: 3000,
+                    close: true,
+                    gravity: "top",
+                    position: "right",
+                    stopOnFocus: true,
+                    style: {
+                        background: "red",
+                    },
+                }).showToast();
+            }
+
             const data = {
-                user_id: user.id,
+                user_id: +user_id,
                 products: cart,
                 total: cart.reduce((acc, cur) => acc + cur.price * cur.quantity, 0)
             };
