@@ -55,8 +55,6 @@ export default function Page() {
 
                 const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}api/auth/login`, values);
 
-                console.log(res.data)
-
                 Toastify({
                     text: res.data.message,
                     duration: 3000,

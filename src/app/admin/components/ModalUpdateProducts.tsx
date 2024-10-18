@@ -61,10 +61,6 @@ export function ModalUpdateProduct({ product }: { product: Product }) {
           image_url: values.image_url,
           brand_id: +brand,
         }
-
-        console.log(values);
-        console.log(product.id)
-
         const res = await axios.patch(`${process.env.NEXT_PUBLIC_API_URL}api/product/update_product/${product.id}`, newValues, {
           headers: {
             Authorization: `${token}`,
@@ -87,7 +83,6 @@ export function ModalUpdateProduct({ product }: { product: Product }) {
         resetForm(); // Reinicia el formulario después de enviar
         handleClose();
 
-        console.log(res.data);
       } catch (err) {
         console.log(err);
         if (err && typeof err === 'object' && 'response' in err && err.response && typeof err.response === 'object' && 'data' in err.response && err.response.data && typeof err.response.data === 'object' && 'message' in err.response.data) {

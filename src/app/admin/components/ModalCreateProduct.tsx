@@ -63,8 +63,6 @@ export function ModalCreateProduct() {
       try {
         values.brand_id = brand
 
-        console.log(values)
-
         const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}api/product/create_product`, values, {
           headers: {
             Authorization: `${token}`,

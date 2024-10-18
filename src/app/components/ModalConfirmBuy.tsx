@@ -4,10 +4,10 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { Button } from '@mui/material';
 import { useAppSelector } from '../redux/hook';
-import { useTokenFromCookies } from '../hook/useGetToken';
 import axios from 'axios';
 import Toastify from "toastify-js";
 import { ModalOrder } from './ModalOrder';
+import Cookies from 'js-cookie';
 
 const style = {
     position: 'absolute',
@@ -29,8 +29,7 @@ export function ModalConfirmBuy() {
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
-    const token = useTokenFromCookies();
-    console.log(token);
+
     const user = useAppSelector((state) => state.user);
     const cart = useAppSelector((state) => state.cart.value)
 
@@ -40,52 +39,50 @@ export function ModalConfirmBuy() {
     const buyProduct = async () => {
         try {
 
-            if (token) {
+            const token = Cookies.get('token');
 
-                const data = {
-                    user_id: user.id,
-                    products: cart,
-                    total: cart.reduce((acc, cur) => acc + cur.price * cur.quantity, 0)
-                };
+            const data = {
+                user_id: user.id,
+                products: cart,
+                total: cart.reduce((acc, cur) => acc + cur.price * cur.quantity, 0)
+            };
 
-                // Crear la orden
-                const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}api/order/create_order`, data, {
+            // Crear la orden
+            const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}api/order/create_order`, data, {
+                headers: {
+                    Authorization: `${token}`
+                }
+            });
+
+            // Actualizar el stock de cada producto en el carrito
+            const updateStockPromises = cart.map(async (product) => {
+                const newStock = product.stock - product.quantity; // Restar la cantidad comprada al stock actual
+                return await axios.patch(`${process.env.NEXT_PUBLIC_API_URL}api/product/update_stock/${product.product_id}`, { stock: newStock }, {
                     headers: {
                         Authorization: `${token}`
                     }
                 });
+            });
 
-                // Actualizar el stock de cada producto en el carrito
-                const updateStockPromises = cart.map(async (product) => {
-                    const newStock = product.stock - product.quantity; // Restar la cantidad comprada al stock actual
-                    return await axios.patch(`${process.env.NEXT_PUBLIC_API_URL}api/product/update_stock/${product.product_id}`, { stock: newStock }, {
-                        headers: {
-                            Authorization: `${token}`
-                        }
-                    });
-                });
+            // Esperar a que todas las actualizaciones de stock se completen
+            await Promise.all(updateStockPromises);
 
-                // Esperar a que todas las actualizaciones de stock se completen
-                await Promise.all(updateStockPromises);
+            Toastify({
+                text: res.data.message,
+                duration: 3000,
+                close: true,
+                gravity: "top",
+                position: "right",
+                stopOnFocus: true,
+                style: {
+                    background: "#25D366",
+                },
+            }).showToast();
 
-                console.log(updateStockPromises);
+            // Guardar el código de referencia de la orden y abrir el modal de confirmación
+            setCode(res.data.order.reference);
+            setOpenModalOrder(true);
 
-                Toastify({
-                    text: res.data.message,
-                    duration: 3000,
-                    close: true,
-                    gravity: "top",
-                    position: "right",
-                    stopOnFocus: true,
-                    style: {
-                        background: "#25D366",
-                    },
-                }).showToast();
-
-                // Guardar el código de referencia de la orden y abrir el modal de confirmación
-                setCode(res.data.order.reference);
-                setOpenModalOrder(true);
-            }
 
         } catch (err) {
             if (err && typeof err === 'object' && 'response' in err && err.response && typeof err.response === 'object' && 'data' in err.response && err.response.data && typeof err.response.data === 'object' && 'message' in err.response.data) {

@@ -60,7 +60,6 @@ export default function Page() {
             try {
                 const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}api/auth/register`, values);
 
-                console.log(res.data);
 
                 Toastify({
                     text: res.data.message,

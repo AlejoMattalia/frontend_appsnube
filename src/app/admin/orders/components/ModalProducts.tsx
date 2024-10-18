@@ -23,7 +23,6 @@ export function ModalProducts({ products }: { products: [] }) {
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
-    console.log(products)
 
     return (
         <div>
