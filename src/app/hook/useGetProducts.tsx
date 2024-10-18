@@ -19,11 +19,9 @@ export const useGetProducts = () => {
     const getProducts = async (page: number) => {
       setLoading(true);
       try {
-        const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}api/product/get_products/${page}`, {
-          headers: {
-            Authorization: `${token}`,
-          },
-        });
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}api/product/get_products/${page}`);
+
+        console.log(response.data.products);
 
         setProducts(response.data.products || []);
         setTotalPages(response.data.totalPages || 1); // Establecer totalPages según el backend
@@ -58,9 +56,9 @@ export const useGetProducts = () => {
       }
     };
 
-    if (token) {
-      getProducts(currentPage); // Llamar a getProducts con la página actual
-    }
+
+    getProducts(currentPage); // Llamar a getProducts con la página actual
+
   }, [token, updateCompnent, currentPage]);
 
   // Función para manejar el cambio de página

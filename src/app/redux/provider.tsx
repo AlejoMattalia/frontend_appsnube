@@ -3,7 +3,6 @@
 import { Provider } from "react-redux";
 import { store } from "./store";
 import { createTheme, CssBaseline, ThemeProvider } from "@mui/material";
-import { useClearToken } from "../hook/useClearToken";
 
 interface Props {
     children: React.ReactNode
@@ -16,7 +15,7 @@ const darkTheme = createTheme({
 });
 export function Providers({ children }: Props) {
 
-    useClearToken();
+    // useClearToken();
 
     return (
 

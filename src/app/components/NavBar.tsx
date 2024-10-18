@@ -20,7 +20,6 @@ const StyledBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
 export const NavBar = () => {
     const router = useRouter();
     const [openCart, setOpenCart] = useState(false);
-    const user = useAppSelector(state => state.user);
 
  
 
@@ -40,7 +39,7 @@ export const NavBar = () => {
             <nav className='w-full h-16 bg-darkGray flex items-center justify-between p-5 gap-5 z-40'> {/* Added z-40 */}
                 <p className='font-bold text-lg cursor-pointer' onClick={() => router.push('/')}>Productos</p>
                 <div className='flex items-center gap-5'>
-                    {user.role === 'admin' && <p className='ml-4 text-white cursor-pointer' onClick={() => router.push('/admin')}>Administrador</p>}
+                    <p className='ml-4 text-white cursor-pointer' onClick={() => router.push('/admin')}>Administrador</p>
                     <IconButton aria-label="cart" onClick={() => setOpenCart(!openCart)}>
                         <StyledBadge badgeContent={cart.length} color="primary">
                             <ShoppingCartIcon color='primary' />

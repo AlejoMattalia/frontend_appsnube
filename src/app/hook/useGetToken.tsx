@@ -11,7 +11,6 @@ export const useTokenFromCookies = () => {
         // Obtén el token de las cookies
         const storedToken = Cookies.get('token'); // Reemplaza 'token' con el nombre de tu cookie
 
-        console.log(storedToken)
         if (storedToken) {
             setToken(storedToken);
         }

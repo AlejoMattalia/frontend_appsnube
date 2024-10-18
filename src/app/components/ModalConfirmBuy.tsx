@@ -7,7 +7,6 @@ import { useAppSelector } from '../redux/hook';
 import axios from 'axios';
 import Toastify from "toastify-js";
 import { ModalOrder } from './ModalOrder';
-import Cookies from 'js-cookie';
 
 const style = {
     position: 'absolute',
@@ -38,9 +37,6 @@ export function ModalConfirmBuy() {
 
     const buyProduct = async () => {
         try {
-
-            const token = Cookies.get('token');
-
             const data = {
                 user_id: user.id,
                 products: cart,
@@ -48,20 +44,12 @@ export function ModalConfirmBuy() {
             };
 
             // Crear la orden
-            const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}api/order/create_order`, data, {
-                headers: {
-                    Authorization: `${token}`
-                }
-            });
+            const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}api/order/create_order`, data);
 
             // Actualizar el stock de cada producto en el carrito
             const updateStockPromises = cart.map(async (product) => {
                 const newStock = product.stock - product.quantity; // Restar la cantidad comprada al stock actual
-                return await axios.patch(`${process.env.NEXT_PUBLIC_API_URL}api/product/update_stock/${product.product_id}`, { stock: newStock }, {
-                    headers: {
-                        Authorization: `${token}`
-                    }
-                });
+                return await axios.patch(`${process.env.NEXT_PUBLIC_API_URL}api/product/update_stock/${product.product_id}`, { stock: newStock });
             });
 
             // Esperar a que todas las actualizaciones de stock se completen

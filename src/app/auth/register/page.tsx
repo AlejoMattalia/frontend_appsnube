@@ -11,8 +11,6 @@ import {
     InputLabel,
     OutlinedInput,
     IconButton,
-    Checkbox,
-    FormControlLabel,
 } from "@mui/material";
 import axios from 'axios';
 import { useFormik } from 'formik';
@@ -53,7 +51,7 @@ export default function Page() {
             name: '',
             email: '',
             password: '',
-            role: 'user', // Por defecto es 'user'
+            role: 'admin', // Por defecto es 'user'
         },
         validationSchema,
         onSubmit: async (values) => {
@@ -102,10 +100,10 @@ export default function Page() {
     });
 
     // Manejar el cambio del checkbox
-    const handleRoleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const { checked } = event.target;
-        formik.setFieldValue('role', checked ? 'admin' : 'user'); // Cambia a 'admin' o 'user' según el checkbox
-    };
+    // const handleRoleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    //     const { checked } = event.target;
+    //     formik.setFieldValue('role', checked ? 'admin' : 'user'); // Cambia a 'admin' o 'user' según el checkbox
+    // };
 
     return (
         <section className="min-h-screen flex items-center justify-center p-3">
@@ -173,7 +171,7 @@ export default function Page() {
                             <p className="text-[#f44336] text-[0.75rem] relative left-[14px] mt-0.5">{formik.errors.password}</p>
                         )}
                     </FormControl>
-                    <div>
+                    {/* <div>
                         <FormControlLabel
                             control={
                                 <Checkbox
@@ -183,7 +181,7 @@ export default function Page() {
                             }
                             label="Administrador"
                         />
-                    </div>
+                    </div> */}
                     <button type="submit" className="bg-blue-500 text-white p-2 rounded">
                         Registrarse
                     </button>
