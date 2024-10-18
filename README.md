@@ -1,36 +1,43 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AppNube
 
-## Getting Started
+Bienvenido a **AppNube**, una aplicación de ecommerce donde podrás gestionar productos y realizar compras, con roles de usuario y administrador. Aquí te detallamos cómo funciona cada sección y las características más importantes.
 
-First, run the development server:
+## Descripción de la Aplicación
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### Autenticación
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **Inicio de Sesión**: Al ingresar a la aplicación, deberás iniciar sesión usando tu email y contraseña.
+- **Registro**: Si no tienes una cuenta, puedes registrarte proporcionando tu nombre, email, contraseña y seleccionando un rol (`admin` o `user`).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Funcionalidades del Usuario
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Una vez dentro de la aplicación, tendrás acceso a las siguientes secciones:
 
-## Learn More
+- **Navbar**: 
+  - Accede al carrito de compras.
+  - Navega al **Home** donde verás todos los productos disponibles.
+  
+- **Home**: 
+  - Visualiza todos los productos con su imagen, nombre y precio.
+  - Selecciona la cantidad deseada y agrégala al carrito.
+  - Explora más detalles de los productos, como la descripción y el stock disponible, y agrégalos al carrito desde ahí.
 
-To learn more about Next.js, take a look at the following resources:
+- **Carrito**: 
+  - Al hacer clic en el ícono del carrito en el navbar, se abrirá una barra lateral donde podrás:
+    - Ver los productos añadidos.
+    - Eliminar productos.
+    - Vaciar el carrito.
+    - Confirmar la compra.
+  - Al confirmar la compra, recibirás una orden con su respectiva referencia.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Funcionalidades del Administrador
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Los administradores tienen acceso a una página especial donde pueden:
 
-## Deploy on Vercel
+- Realizar un CRUD completo de los productos y marcas.
+- Ver todas las órdenes realizadas por los usuarios.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## URL de la Aplicación
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Puedes acceder al frontend de la aplicación en el siguiente enlace:
+[https://frontend-appsnube.vercel.app/](https://frontend-appsnube.vercel.app/)

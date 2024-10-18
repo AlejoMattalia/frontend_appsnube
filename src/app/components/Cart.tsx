@@ -3,7 +3,7 @@ import React from 'react';
 import { useAppDispatch, useAppSelector } from '../redux/hook';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Button } from '@mui/material';
-import { clearCart } from '../redux/feature/cart/cartSlice';
+import { clearCart, removeFromCart } from '../redux/feature/cart/cartSlice';
 import { ModalConfirmBuy } from './ModalConfirmBuy';
 
 const Cart = ({ isOpen }: { isOpen: boolean }) => {
@@ -30,10 +30,10 @@ const Cart = ({ isOpen }: { isOpen: boolean }) => {
                                     <img src={product.image_url} alt="" className='w-full h-full object-cover' />
                                 </div>
 
-                                <section className='px-3 w-full flex flex-col items-start justify-between gap-3'>
-                                    <div className='w-full flex items-start justify-between'>
+                                <section className='px-3 w-full flex flex-col items-start justify-between gap-'>
+                                    <div className='w-full flex items-start justify-between gap-3'>
                                         <h3 className="text-sm">{product.name}</h3>
-                                        <DeleteIcon color='error' />
+                                        <DeleteIcon color='error' onClick={() => dispatch(removeFromCart(product.product_id))} sx={{ cursor: "pointer" }}/>
                                     </div>
 
                                     <div>
