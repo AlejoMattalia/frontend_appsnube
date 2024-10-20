@@ -14,6 +14,9 @@ const config: Config = {
         primary: " #90caf9",
         darkGray: "#1c1c1c",
       },
+      screens: {
+        'short': { 'raw': '(max-height: 650px)' },
+      },
     },
   },
   plugins: [],

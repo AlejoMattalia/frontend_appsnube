@@ -107,7 +107,7 @@ export default function Page() {
     // };
 
     return (
-        <section className="min-h-screen flex items-center justify-center p-3">
+        <section className="min-h-screen flex items-center justify-center p-3 relative bottom-20 short:bottom-0">
             <div className="flex flex-col w-full max-w-[600px] bg-darkGray p-10 rounded-xl">
                 <h1 className="text-3xl font-bold mb-10">Registrarse</h1>
                 <form className='flex flex-col gap-5 w-full' onSubmit={formik.handleSubmit}>
